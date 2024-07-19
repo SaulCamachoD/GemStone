@@ -10,6 +10,7 @@ public class CheckPointTutorialScene : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             locations.CurrentLocation(transform.position);
+            locations.EventBoss(false);
         }
     }
 }

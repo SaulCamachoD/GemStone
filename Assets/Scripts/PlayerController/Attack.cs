@@ -5,11 +5,7 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
     public float health = 100f;
-    void Start()
-    {
-        
-    }
-    
+
     public void Damage(float damage)
     {
         health -= damage;

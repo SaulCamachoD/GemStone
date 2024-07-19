@@ -20,7 +20,7 @@ public class EnemyProPlayer : EnemyCharacter
         if(_animator !=null)_animator.SetBool("atacando", false);
         _agent.SetDestination(_agent.transform.position);
         
-        UnityEngine.Debug.Log("Kieto");
+        //UnityEngine.Debug.Log("Kieto");
     }
     public override void EstadoSeguir()
     {
@@ -37,7 +37,7 @@ public class EnemyProPlayer : EnemyCharacter
         base.EstadoAtacar();
         _agent.SetDestination(_agent.transform.position);
         _agent.transform.LookAt(target,Vector3.up);
-        if(_animator !=null)_animator.SetFloat("velcidad",0);
+        if(_animator !=null)_animator.SetFloat("velocidad",0);
         if(_animator !=null)_animator.SetBool("atacando",true);
     }
     public override void EstadoMuerto()

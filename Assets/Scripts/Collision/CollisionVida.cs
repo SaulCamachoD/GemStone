@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ public class CollisionVida : MonoBehaviour
     public Animator anim;
     public GameObject Gema;
     public BossDoor bossDoor;
+    public bool isBoss;//Line nueva Saul
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,8 +27,11 @@ public class CollisionVida : MonoBehaviour
         if (hp < 0)
         {
             Destroy(gameObject);
-            Gema.SetActive(true);
-            bossDoor.ActiveDoorEvent();
+            if (isBoss)//Condicional nuevo Saul
+            {
+                Gema.SetActive(true);
+                bossDoor.ActiveDoorEvent(); 
+            }
         }
     }
 }

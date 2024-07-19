@@ -16,6 +16,7 @@ TagManager:
   - Gema
   - armaImpacto
   - FinalMenu
+  - Enemy
   layers:
   - Default
   - TransparentFX

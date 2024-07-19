@@ -5,10 +5,6 @@ using UnityEngine;
 public class RestoreItems : MonoBehaviour
 {
     public Attack attack;
-    void Start()
-    {
-
-    }
     
 
     public void ResetPlayerHeatlh()

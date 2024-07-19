@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 public class PlayerLoctions : MonoBehaviour
 {
-    private float Xinicial;
-    private float Yinicial;
-    private float Zinicial;
+    private float XPinicial ;
+    private float YPinicial ;
+    private float ZPinicial ;
     private float Xcurrent;
     private float Ycurrent;
     private float Zcurrent;
@@ -19,20 +20,20 @@ public class PlayerLoctions : MonoBehaviour
     public RestoreItems restoreItems;
     PlayerVariables playerVariables;
 
+
     Attack attack;
+
     void Start()
     {
-        Xinicial = transform.position.x;
-        Yinicial = transform.position.y;
-        Zinicial = transform.position.z;
         attack = GetComponent<Attack>();
-        playerVariables = GetComponent<PlayerVariables>();  
+        playerVariables = GetComponent<PlayerVariables>();
 
     }
 
     public void InicialLocation()
     {
-        transform.position = new Vector3(Xinicial, Yinicial, Zinicial);
+        transform.position = new Vector3(XPinicial, YPinicial, ZPinicial);
+        print("InicialLocation");
     }
     
     public void CheckPointBoss( Vector3 position)
@@ -40,6 +41,7 @@ public class PlayerLoctions : MonoBehaviour
         XdoorBoss = position.x;
         YdoorBoss = position.y;
         ZdoorBoss = position.z;
+        print("CheckpoinBoss");
     }
 
     public void CurrentLocation(Vector3 location)
@@ -47,19 +49,23 @@ public class PlayerLoctions : MonoBehaviour
         Xcurrent = location.x;
         Ycurrent = location.y;
         Zcurrent = location.z;
+        print("CurrentLocation");
     }
 
     public void DoorBossLocation()
     {
         transform.position = new Vector3(XdoorBoss, YdoorBoss + 0.5f, ZdoorBoss);
+        print("DoorBossLocation");
     }
     public void EventBoss(bool inFightBoos)
     {
         ZonaBoss = inFightBoos;
+        print("EventBoss");
     }
 
     public void ReLocation()
     {
+        print("Relocation");
         if (ZonaBoss)
         {
             if (playerVariables.health <= 25f && !isPlayerResetting)

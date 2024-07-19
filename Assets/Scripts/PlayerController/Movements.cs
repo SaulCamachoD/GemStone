@@ -19,6 +19,7 @@ public class Movements : MonoBehaviour
     private float dashTimer;
     [SerializeField] private bool canMove;
     private float originalSpeed;
+    public bool MoveDirections = false;
 
     public GemaMovements gemaMovements;
 
@@ -54,10 +55,23 @@ public class Movements : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (!MoveDirections)
         {
-            Displacement();
+            if (canMove)
+            {
+                Displacement();
+            } 
         }
+
+        else 
+        {
+            if (canMove)
+            {
+                DisplacementB();
+            }
+        }
+
+
         dashTimer -= Time.deltaTime; 
     }
 
@@ -69,6 +83,25 @@ public class Movements : MonoBehaviour
         }
 
         Vector3 movement = new Vector3(mX, 0, mZ).normalized;
+
+        if (movement.magnitude >= 0.5f)
+        {
+            float targetAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg;
+
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref Vr, 0.1f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            rb.MovePosition(transform.position + moveDirection * playerVariables.speed * Time.deltaTime);
+        }
+    }public void DisplacementB()
+    {
+        if (isDashing)
+        {
+            return; 
+        }
+
+        Vector3 movement = new Vector3(-mZ, 0, mX).normalized;
 
         if (movement.magnitude >= 0.5f)
         {

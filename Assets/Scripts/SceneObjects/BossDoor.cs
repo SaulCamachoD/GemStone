@@ -7,10 +7,10 @@ public class BossDoor : MonoBehaviour
     public float openAngle = -90f;
     public float openSpeed = 2f;
 
-    private bool isOpen = false;
+    public bool isOpen = false;
     private float initialYRotation;
     private float targetYRotation;
-    private bool isMoving = false;
+    public bool isMoving = false;
 
     void Start()
     {

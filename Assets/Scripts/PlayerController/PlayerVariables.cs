@@ -59,11 +59,9 @@ public class PlayerVariables : MonoBehaviour
     {
         
         _WeaponCollider = weaponObjec.GetComponent<Collider>();
-        
         movements = GetComponent<Movements>();
         attack = GetComponent<Attack>();
         playerLoctions = GetComponent<PlayerLoctions>();
-        
         weapons.Add(new WeaponDistance(20));
         weapons.Add(new WeaponMelee(50, _WeaponCollider));
     }
@@ -87,6 +85,6 @@ public class PlayerVariables : MonoBehaviour
         movInZ = movements.mZ;
         unLockDash = movements.unlockDash;
         health = attack.health;
-        stayWhitBoss = playerLoctions.ZonaBoss;
+        //stayWhitBoss = playerLoctions.ZonaBoss;
     }
 }

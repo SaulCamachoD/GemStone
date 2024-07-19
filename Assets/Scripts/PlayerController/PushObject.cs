@@ -20,7 +20,6 @@ public class PushObject : MonoBehaviour
             // Aplica la fuerza al objeto empujable
             pushableRb.AddForce(forceDirection * pushForce);
 
-            print("Estoy");
         }
     }
 }

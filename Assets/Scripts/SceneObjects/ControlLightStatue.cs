@@ -9,6 +9,11 @@ public class ControlLightStatue : MonoBehaviour
 
     // Referencia a la segunda luz spot
     public Light spotLight2;
+    
+    // Referencia a luz Stone
+    public Light spotLight3;
+
+    public GameObject Message;
 
     // Intensidad inicial y final
     public float initialIntensity = 5f;
@@ -20,6 +25,8 @@ public class ControlLightStatue : MonoBehaviour
     // Duración del titileo
     public float blinkDuration = 0.5f;
 
+    public GemaMovements GemeMovements;
+
     void Start()
     {
         // Asegúrate de que las luces tengan la intensidad inicial al comenzar
@@ -27,12 +34,23 @@ public class ControlLightStatue : MonoBehaviour
             spotLight1.intensity = initialIntensity;
         if (spotLight2 != null)
             spotLight2.intensity = initialIntensity;
+
+        spotLight3.intensity = 0;
+        Message.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
     {
         // Cuando el collider se activa, comienza la Coroutine
         StartCoroutine(BlinkAndIncreaseIntensity());
+        GemeMovements.StatueAdvice();
+        spotLight3.intensity = 120;
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Message.SetActive(false);
     }
 
     IEnumerator BlinkAndIncreaseIntensity()
@@ -52,6 +70,8 @@ public class ControlLightStatue : MonoBehaviour
             if (spotLight2 != null)
                 spotLight2.intensity = initialIntensity;
             yield return new WaitForSeconds(blinkDuration / 2);
+
+            
         }
 
         // Aumentar la intensidad a la final
@@ -59,5 +79,7 @@ public class ControlLightStatue : MonoBehaviour
             spotLight1.intensity = finalIntensity;
         if (spotLight2 != null)
             spotLight2.intensity = finalIntensity;
+        Message.SetActive(true);
+
     }
 }

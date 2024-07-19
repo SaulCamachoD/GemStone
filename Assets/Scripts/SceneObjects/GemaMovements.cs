@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -13,8 +11,8 @@ public class GemaMovements : MonoBehaviour
 
     private Transform rocaPadreOriginal;
     private bool isPushing = false;
+    public bool statueAdvice = false;
 
-    
     public event Action<bool> OnPushStateChanged;
 
     void Start()
@@ -24,22 +22,21 @@ public class GemaMovements : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && CanPush)
+        if (Input.GetKeyDown(KeyCode.E) && CanPush && statueAdvice)
         {
             if (!isPushing)
             {
-                animations.PushanimationActive();
-                transform.SetParent(personaje);
-                isPushing = true;
-                OnPushStateChanged?.Invoke(true); 
+                StartPushing();
             }
             else
             {
-                animations.PushanimationDesActive();
-                transform.SetParent(rocaPadreOriginal);
-                isPushing = false;
-                OnPushStateChanged?.Invoke(false); 
+                StopPushing();
             }
+        }
+
+        if (isPushing && Input.GetKeyUp(KeyCode.E))
+        {
+            StopPushing();
         }
 
         if (isPushing)
@@ -47,6 +44,22 @@ public class GemaMovements : MonoBehaviour
             Vector3 offsetPosition = personaje.position + personaje.forward * offsetDistancia;
             transform.position = offsetPosition;
         }
+    }
+
+    private void StartPushing()
+    {
+        animations.PushanimationActive();
+        transform.SetParent(personaje);
+        isPushing = true;
+        OnPushStateChanged?.Invoke(true);
+    }
+
+    private void StopPushing()
+    {
+        animations.PushanimationDesActive();
+        transform.SetParent(rocaPadreOriginal);
+        isPushing = false;
+        OnPushStateChanged?.Invoke(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -61,6 +74,8 @@ public class GemaMovements : MonoBehaviour
         }
     }
 
+
+
     void OnTriggerExit(Collider other)
     {
         if (other.transform == personaje)
@@ -68,11 +83,13 @@ public class GemaMovements : MonoBehaviour
             CanPush = false;
             if (isPushing)
             {
-                animations.PushanimationDesActive();
-                transform.SetParent(rocaPadreOriginal);
-                isPushing = false;
-                OnPushStateChanged?.Invoke(false); 
+                StopPushing();
             }
         }
+    }
+
+    public void StatueAdvice()
+    {
+        statueAdvice = true;
     }
 }

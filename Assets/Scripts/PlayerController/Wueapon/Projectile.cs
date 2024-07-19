@@ -11,7 +11,8 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         // Inicializar la velocidad del proyectil
-        GetComponent<Rigidbody>().velocity = transform.forward * speed;
+        GetComponent<Rigidbody>().velocity = transform.forward * speed * 2;
+        Destroy(gameObject, 4f);
 
     }
     public Projectile(int _damage)
